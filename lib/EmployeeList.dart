@@ -160,8 +160,8 @@ class _EmployeeListState extends State<EmployeeList>
     return _employees.isEmpty
         ? Scaffold(
       appBar: AppBar(
-        title: Text('Employee List'),
-        backgroundColor: Colors.redAccent,
+        title: Text('Vritti List'),
+        backgroundColor: Colors.blue,
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
@@ -178,8 +178,8 @@ class _EmployeeListState extends State<EmployeeList>
     )
         : Scaffold(
       appBar: AppBar(
-        title: Text('Employee List'),
-        backgroundColor: Colors.redAccent,
+        title: Text('Vritti List'),
+        backgroundColor: Colors.blue,
         elevation: 0,
         actions: [
           IconButton(
@@ -192,7 +192,7 @@ class _EmployeeListState extends State<EmployeeList>
         ],
         bottom: TabBar(
           isScrollable: true,
-          labelColor: Colors.redAccent,
+          labelColor: Colors.blue,
           unselectedLabelColor: Colors.white,
           indicator: BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -210,57 +210,76 @@ class _EmployeeListState extends State<EmployeeList>
               controller: _tabController,
               children: _employees.map((e) {
                 return Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 30, 15, 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  child: Card(
+                    elevation: 5,
+                    margin: EdgeInsets.all(10),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              _editEmployee(context, e);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.redAccent,
-                            ),
-                            child: Text('Edit'),
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  _editEmployee(context, e);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                ),
+                                child: Text('Edit'),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  _deleteEmployee(e.id);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue,
+                                ),
+                                child: Text('Delete'),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              CircleAvatar(
+                                radius: 50,
+                                backgroundImage: NetworkImage(e.avatar),
+                              ),
+                            ],
                           ),
                           SizedBox(
-                            width: 10,
+                            height: 20,
                           ),
-                          ElevatedButton(
-                            onPressed: () {
-                              _deleteEmployee(e.id);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                              Colors.redAccent, // Background color
-                            ),
-                            child: Text('Delete'),
+                          Text(
+                            'First Name: ${e.name}',
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
-                            width: 20,
+                            height: 10,
                           ),
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage: NetworkImage(e.avatar),
+                          Text(
+                            'Last Name: ${e.lastName}',
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Email: ${e.email}',
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
                           ),
                         ],
                       ),
-                      Text(
-                        'First Name: ${e.name}',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      Text(
-                        'Last Name: ${e.lastName}',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      Text(
-                        'Email: ${e.email}',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
+                    ),
                   ),
+
                 );
               }).toList(),
             ),
